@@ -1,6 +1,6 @@
 # Objective
 This is a Raspberry Pi based LED Display (MAX7219) which can be controlled via http requests. It makes use of the Python libraries luma and Flask.
-
+![nice photo](foto.jpg "Hier koennte Ihre Werbung stehen.")
 
 
 # Installation
