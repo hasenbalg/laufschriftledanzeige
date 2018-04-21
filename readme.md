@@ -2,6 +2,16 @@
 This is a Raspberry Pi based LED Display (MAX7219) which can be controlled via http requests. It makes use of the Python libraries luma and Flask.
 ![nice photo](foto.jpg "Hier koennte Ihre Werbung stehen.")
 
+# GPIOs
+| Board  Pin |	Name | Remarks |	RPi Pin |	RPi  Function |
+|------------|------|---------|----------|---------------|
+| 1 |	VCC	| +5V  Power |	2	| 5V0 |
+| 2 |	GND |	Ground |	6 |	GND |
+| 3 |	DIN |	Data In |	19 |	GPIO 10  (MOSI) |
+| 4 |	CS	| Chip Select	| 24 |	GPIO 8  (SPI CE0) |
+| 5 |	CLK	| Clock	 | 23 | GPIO 11  (SPI CLK) |
+
+picked from [here](https://luma-led-matrix.readthedocs.io/en/latest/install.html#gpio-pin-outs)
 
 # Installation
 Don't try the installation on less hardware than a Raspberry 2. I had memory problems installing pip dependencies eg. pillow. Running the service on a Raspberry A+ works fine.  
