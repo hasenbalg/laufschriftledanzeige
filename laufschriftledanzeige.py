@@ -85,21 +85,23 @@ def changeDisplayContent():
 
     if request.form['brightness']:
         dc.brightness = int(request.form['brightness'])
-
+    print(dc.toJson())
     return dc.toJson() # response to your request.
 
 
-def renderDisplay(n, block_orientation, rotate):
+def renderDisplay():
     while 1:
-        # create matrix device
-        serial = spi(port=0, device=0, gpio=noop())
-        device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
-        print("Created device")
-
+        global device
         device.contrast(dc.brightness)
         print(dc.text)
         show_message(device, dc.text, fill="white", font=proportional(LCD_FONT), scroll_delay = dc.speed)
 
+def initDisplay(n, block_orientation, rotate):
+        global device
+        # create matrix device
+        serial = spi(port=0, device=0, gpio=noop())
+        device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
+        print("Created device")
 
 def run_server(host, port):
 	app.run(host = host, port = 80)
@@ -122,7 +124,8 @@ if __name__ == '__main__':
 
     try:
         if os.environ.get("WERKZEUG_RUN_MAIN") == "true": #https://stackoverflow.com/a/9476701
-	    fred = Thread(target=renderDisplay, args=(args.cascaded, args.block_orientation, args.rotate))
+            initDisplay(args.cascaded, args.block_orientation, args.rotate)
+	    fred = Thread(target=renderDisplay)
             fred.daemon = True
             fred.start()
             print('starting render thread')
